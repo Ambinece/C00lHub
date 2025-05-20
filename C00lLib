@@ -1,184 +1,81 @@
-local C00lGUI = Instance.new("ScreenGui")
-local TopBar = Instance.new("Frame")
-local Main = Instance.new("Frame")
-local TextLabel = Instance.new("TextLabel")
-local DestroyGUI = Instance.new("TextButton")
-local ButtonHolder = Instance.new("Frame")
+local MainLibrary = {}
 
-local UIListLayout = Instance.new("UIListLayout")
-local HideMove = Instance.new("Frame")
-local HideGUI = Instance.new("TextButton")
+function MainLibrary:CreateUI(title)
+    local player = game:GetService("Players").LocalPlayer
+    local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+    gui.Name = "C00lGUI"
+    gui.ResetOnSpawn = false
 
-_G.Main = {
-	
-}
-function _G.Main:new(Title)
+    local topBar = Instance.new("Frame")
+    topBar.Name = "TopBar"
+    topBar.Size = UDim2.new(0, 400, 0, 35)
+    topBar.Position = UDim2.new(0.3, 0, 0.2, 0)
+    topBar.BackgroundColor3 = Color3.new(0, 0, 0)
+    topBar.BorderColor3 = Color3.new(1, 0, 0)
+    topBar.BorderSizePixel = 3
+    topBar.Parent = gui
+    topBar.Active = true
+    topBar.Draggable = true
 
-	C00lGUI.Name = "C00lGUI"
-	C00lGUI.Parent = game.CoreGui
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.BackgroundTransparency = 1
+    label.Text = title or "C00lGUI"
+    label.TextColor3 = Color3.new(1, 1, 1)
+    label.Font = Enum.Font.SourceSansBold
+    label.TextSize = 22
+    label.Parent = topBar
 
-	TopBar.Name = "TopBar"
-	TopBar.Size = UDim2.new(0, 400, 0, 35)
-	TopBar.BorderColor3 = Color3.new(1, 0, 0)
-	TopBar.BorderSizePixel = 3
-	TopBar.Position = UDim2.new(0.463895887, 0, 0.171467766, 0)
-	TopBar.BackgroundColor3 = Color3.new(0, 0, 0)
-	TopBar.Parent = C00lGUI
-	TopBar.Text = Title
+    local buttonHolder = Instance.new("Frame")
+    buttonHolder.Name = "ButtonHolder"
+    buttonHolder.Size = UDim2.new(1, 0, 0, 300)
+    buttonHolder.Position = UDim2.new(0, 0, 1, 0)
+    buttonHolder.BackgroundTransparency = 1
+    buttonHolder.Parent = topBar
 
-	Main.Name = "Main"
-	Main.Size = UDim2.new(0, 400, 0, 367)
-	Main.BorderColor3 = Color3.new(1, 0, 0)
-	Main.BorderSizePixel = 3
-	Main.Position = UDim2.new(0, 0, 1.10000002, 0)
-	Main.BackgroundColor3 = Color3.new(0, 0, 0)
-	Main.Parent = TopBar
+    local layout = Instance.new("UIListLayout")
+    layout.Padding = UDim.new(0, 5)
+    layout.Parent = buttonHolder
 
-	TextLabel.Name = "TextLabel"
-	TextLabel.Size = UDim2.new(0, 364, 0, 35)
-	TextLabel.BorderColor3 = Color3.new(0, 0, 0)
-	TextLabel.BorderSizePixel = 0
-	TextLabel.BackgroundTransparency = 1
-	TextLabel.Position = UDim2.new(-7.62939436e-08, 0, 0, 0)
-	TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
-	TextLabel.TextColor3 = Color3.new(1, 1, 1)
-	TextLabel.Text = "C00lGUI"
-	TextLabel.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-	TextLabel.Parent = TopBar
+    local toggleState = {}
 
-	DestroyGUI.Name = "DestroyGUI"
-	DestroyGUI.AutoButtonColor = true
-	DestroyGUI.Size = UDim2.new(0, 35, 0, 35)
-	DestroyGUI.BorderColor3 = Color3.new(1, 0, 0)
-	DestroyGUI.BorderSizePixel = 3
-	DestroyGUI.Position = UDim2.new(0.911053896, 0, -0.000946044922, 0)
-	DestroyGUI.BackgroundColor3 = Color3.new(0, 0, 0)
-	DestroyGUI.TextColor3 = Color3.new(1, 1, 1)
-	DestroyGUI.Text = "<"
-	DestroyGUI.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-	DestroyGUI.Parent = TopBar
+    local interface = {}
 
-	ButtonHolder.Name = "ButtonHolder"
-	ButtonHolder.Size = UDim2.new(0, 395, 0, 361)
-	ButtonHolder.BorderColor3 = Color3.new(1, 0, 0)
-	ButtonHolder.BorderSizePixel = 0
-	ButtonHolder.BackgroundTransparency = 1
-	ButtonHolder.Position = UDim2.new(0.00499999989, 0, 1.18571424, 0)
-	ButtonHolder.BackgroundColor3 = Color3.new(0, 0, 0)
-	ButtonHolder.Parent = TopBar
+    function interface:CreateButton(name, callback)
+        local button = Instance.new("TextButton")
+        button.Size = UDim2.new(1, -10, 0, 40)
+        button.Text = name
+        button.TextColor3 = Color3.new(1, 1, 1)
+        button.BackgroundColor3 = Color3.new(0, 0, 0)
+        button.BorderColor3 = Color3.new(1, 0, 0)
+        button.Parent = buttonHolder
 
-	UIListLayout.Name = "UIListLayout"
-	UIListLayout.Wraps = true
-	UIListLayout.Padding = UDim.new(0.00499999989, 0)
-	UIListLayout.ItemLineAlignment = Enum.ItemLineAlignment.End
-	UIListLayout.Parent = ButtonHolder
-
-	HideMove.Name = "HideMove"
-	HideMove.Size = UDim2.new(0, 65, 0, 29)
-	HideMove.BorderColor3 = Color3.new(0, 0, 0)
-	HideMove.BorderSizePixel = 0
-	HideMove.BackgroundTransparency = 0.8999999761581421
-	HideMove.Position = UDim2.new(0.374055415, 0, 0.121056251, 0)
-	HideMove.BackgroundColor3 = Color3.new(1, 0, 0)
-	HideMove.Parent = C00lGUI
-
-	HideGUI.Name = "HideGUI"
-	HideGUI.AutoButtonColor = true
-	HideGUI.Size = UDim2.new(0, 30, 0, 30)
-	HideGUI.BorderColor3 = Color3.new(1, 0, 0)
-	HideGUI.BorderSizePixel = 3
-	HideGUI.Position = UDim2.new(0.26105395, 0, 0.999053955, 0)
-	HideGUI.BackgroundColor3 = Color3.new(0, 0, 0)
-	HideGUI.TextColor3 = Color3.new(1, 1, 1)
-	HideGUI.Text = "<"
-	HideGUI.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-	HideGUI.Parent = HideMove
-
-	coroutine.wrap(function()
-		local script = Instance.new("LocalScript", TopBar)
-		script.Parent.Active = true
-		script.Parent.Draggable = true
-	end)()
-
-	coroutine.wrap(function()
-		local script = Instance.new("LocalScript", DestroyGUI)
-		script.Parent.MouseButton1Click:Connect(function()
-			script.Parent.Parent.Parent.TopBar.Visible = not script.Parent.Parent.Parent.TopBar.Visible
-			script.Parent.Text = script.Parent.Parent.Parent.TopBar.Visible and "<" or ">"
-		end)
-	end)()
-
-	coroutine.wrap(function()
-		local script = Instance.new("LocalScript", HideGUI)
-		script.Parent.MouseButton1Click:Connect(function()
-			script.Parent.Parent.Parent.TopBar.Visible = not script.Parent.Parent.Parent.TopBar.Visible
-			script.Parent.Text = script.Parent.Parent.Parent.TopBar.Visible and "<" or ">"
-		end)
-	end)()
-
-	coroutine.wrap(function()
-		local script = Instance.new("LocalScript", HideMove)
-		script.Parent.Active = true
-		script.Parent.Draggable = true
-	end)()
-	
-	_G.Frame = {}
-	function _G.Frame:Button(Name,Call)
-		
-		local TextButton = Instance.new("TextButton")
-		TextButton.Name = Name
-		TextButton.AutoButtonColor = true
-		TextButton.Size = UDim2.new(0, 196, 0, 50)
-		TextButton.SizeConstraint = Enum.SizeConstraint.RelativeXX
-		TextButton.BorderColor3 = Color3.new(1, 0, 0)
-		TextButton.BorderSizePixel = 4
-		TextButton.Position = UDim2.new(0.228750005, 0, 0.401105642, 0)
-		TextButton.BorderMode = Enum.BorderMode.Inset
-		TextButton.BackgroundColor3 = Color3.new(0, 0, 0)
-		TextButton.TextStrokeColor3 = Color3.new(0, 0, 0)
-		TextButton.TextStrokeTransparency = 0
-		TextButton.TextColor3 = Color3.new(1, 1, 1)
-		TextButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-		TextButton.Parent = ButtonHolder
-		
-		TextButton.MouseButton1Click:Connect(function()
-			
-			pcall(Call)
-			
-		end)
-		
-    function _G.Frame:Toggle(Name, Callback)
-	    local state = false
-
-	    local ToggleButton = Instance.new("TextButton")
-	    ToggleButton.Name = Name
-	    ToggleButton.AutoButtonColor = true
-	    ToggleButton.Size = UDim2.new(0, 196, 0, 50)
-	    ToggleButton.SizeConstraint = Enum.SizeConstraint.RelativeXX
-	    ToggleButton.BorderColor3 = Color3.new(1, 0, 0)
-    	ToggleButton.BorderSizePixel = 4
-	    ToggleButton.Position = UDim2.new(0.228750005, 0, 0.401105642, 0)
-    	ToggleButton.BorderMode = Enum.BorderMode.Inset
-    	ToggleButton.BackgroundColor3 = Color3.new(0, 0, 0)
-	    ToggleButton.TextStrokeColor3 = Color3.new(0, 0, 0)
-    	ToggleButton.TextStrokeTransparency = 0
-    	ToggleButton.TextColor3 = Color3.new(1, 1, 1)
-	    ToggleButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-    	ToggleButton.Text = Name .. ": Off"
-	    ToggleButton.Parent = ButtonHolder
-
-    	ToggleButton.MouseButton1Click:Connect(function()
-		    state = not state
-		    ToggleButton.Text = Name .. ": " .. (state and "On" or "Off")
-		    pcall(Callback, state)
-	    end)
+        button.MouseButton1Click:Connect(function()
+            pcall(callback)
+        end)
     end
 
-        
-	end
-	
-	return _G.Frame
-	
+    function interface:CreateToggle(name, callback)
+        local state = false
+
+        local toggle = Instance.new("TextButton")
+        toggle.Size = UDim2.new(1, -10, 0, 40)
+        toggle.Text = name .. ": Off"
+        toggle.TextColor3 = Color3.new(1, 1, 1)
+        toggle.BackgroundColor3 = Color3.new(0, 0, 0)
+        toggle.BorderColor3 = Color3.new(1, 0, 0)
+        toggle.Parent = buttonHolder
+
+        toggle.MouseButton1Click:Connect(function()
+            state = not state
+            toggle.Text = name .. ": " .. (state and "On" or "Off")
+            pcall(callback, state)
+        end)
+
+        toggleState[name] = state
+    end
+
+    return interface
 end
 
-return _G.Main
+return MainLibrary
