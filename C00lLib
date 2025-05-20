@@ -62,7 +62,7 @@ function _G.Main:new(Title)
 	ButtonHolder.Size = UDim2.new(0, 395, 0, 361)
 	ButtonHolder.BorderColor3 = Color3.new(1, 0, 0)
 	ButtonHolder.BorderSizePixel = 0
-	ButtonHolder.BackgroundTransparency = 0.5
+	ButtonHolder.BackgroundTransparency = 1
 	ButtonHolder.Position = UDim2.new(0.00499999989, 0, 1.18571424, 0)
 	ButtonHolder.BackgroundColor3 = Color3.new(0, 0, 0)
 	ButtonHolder.Parent = TopBar
