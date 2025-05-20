@@ -6,7 +6,7 @@ function MainLibrary:CreateUI(title)
     Gui.ResetOnSpawn = false
     Gui.Parent = game.CoreGui
 
-    -- Toggle Frame/Button
+    -- Toggle Frame/Button (to hide/show main UI)
     local ToggleMove = Instance.new("Frame")
     ToggleMove.Size = UDim2.new(0, 60, 0, 38)
     ToggleMove.Position = UDim2.new(0, 10, 0, 10)
@@ -25,7 +25,7 @@ function MainLibrary:CreateUI(title)
     ToggleButton.BorderSizePixel = 3
     ToggleButton.Parent = ToggleMove
 
-    -- TopBar Frame
+    -- TopBar
     local TopBar = Instance.new("Frame")
     TopBar.Name = "TopBar"
     TopBar.Size = UDim2.new(0, 500, 0, 35)
@@ -61,25 +61,27 @@ function MainLibrary:CreateUI(title)
         Gui:Destroy()
     end)
 
-    -- Main Content Frame
-    local Main = Instance.new("Frame")
-    Main.Name = "Main"
-    Main.Size = UDim2.new(0, 500, 0, 500)
-    Main.Position = UDim2.new(0, 0, 1, 0)
-    Main.BackgroundColor3 = Color3.new(0, 0, 0)
-    Main.BorderColor3 = Color3.fromRGB(255, 0, 0)
-    Main.BorderSizePixel = 3
-    Main.Parent = TopBar
+    -- Button Holder (Main area under TopBar)
+    local ButtonHolder = Instance.new("Frame")
+    ButtonHolder.Name = "ButtonHolder"
+    ButtonHolder.Size = UDim2.new(1, 0, 0, 450)
+    ButtonHolder.Position = UDim2.new(0, 0, 1, 0)
+    ButtonHolder.BackgroundColor3 = Color3.new(0, 0, 0)
+    ButtonHolder.BorderColor3 = Color3.fromRGB(255, 0, 0)
+    ButtonHolder.BorderSizePixel = 3
+    ButtonHolder.Parent = TopBar
 
+    -- UIListLayout
     local Layout = Instance.new("UIListLayout")
-    Layout.SortOrder = Enum.SortOrder.LayoutOrder
     Layout.Padding = UDim.new(0, 5)
-    Layout.Parent = Main
+    Layout.SortOrder = Enum.SortOrder.LayoutOrder
+    Layout.Parent = ButtonHolder
 
     -- Toggle Show/Hide
     ToggleButton.MouseButton1Click:Connect(function()
-        Main.Visible = not Main.Visible
-        ToggleButton.Text = Main.Visible and "<" or ">"
+        local visible = ButtonHolder.Visible
+        ButtonHolder.Visible = not visible
+        ToggleButton.Text = visible and ">" or "<"
     end)
 
     local ToggleState = {}
@@ -93,7 +95,7 @@ function MainLibrary:CreateUI(title)
         Button.TextColor3 = Color3.new(1, 1, 1)
         Button.BackgroundColor3 = Color3.new(0, 0, 0)
         Button.BorderColor3 = Color3.new(1, 0, 0)
-        Button.Parent = Main
+        Button.Parent = ButtonHolder
 
         Button.MouseButton1Click:Connect(function()
             pcall(callback)
@@ -108,7 +110,7 @@ function MainLibrary:CreateUI(title)
         toggle.TextColor3 = Color3.new(1, 1, 1)
         toggle.BackgroundColor3 = Color3.new(0, 0, 0)
         toggle.BorderColor3 = Color3.new(1, 0, 0)
-        toggle.Parent = Main
+        toggle.Parent = ButtonHolder
 
         toggle.MouseButton1Click:Connect(function()
             state = not state
