@@ -4,7 +4,7 @@ function MainLibrary:CreateUI(title)
     local Gui = Instance.new("ScreenGui")
     Gui.Name = "C00lGUI"
     Gui.ResetOnSpawn = false
-    Gui.Parent = CoreGui
+    Gui.Parent = game.CoreGui
 
     local TopBar = Instance.new("Frame")
     TopBar.Name = "TopBar"
