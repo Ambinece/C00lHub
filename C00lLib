@@ -15,7 +15,7 @@ _G.Main = {
 function _G.Main:new(Title)
 
 	C00lGUI.Name = "C00lGUI"
-	C00lGUI.Parent = game.StarterGui
+	C00lGUI.Parent = game.CoreGui
 
 	TopBar.Name = "TopBar"
 	TopBar.Size = UDim2.new(0, 400, 0, 35)
@@ -147,6 +147,34 @@ function _G.Main:new(Title)
 			
 		end)
 		
+    function _G.Frame:Toggle(Name, Callback)
+	    local state = false
+
+	    local ToggleButton = Instance.new("TextButton")
+	    ToggleButton.Name = Name
+	    ToggleButton.AutoButtonColor = true
+	    ToggleButton.Size = UDim2.new(0, 196, 0, 50)
+	    ToggleButton.SizeConstraint = Enum.SizeConstraint.RelativeXX
+	    ToggleButton.BorderColor3 = Color3.new(1, 0, 0)
+    	ToggleButton.BorderSizePixel = 4
+	    ToggleButton.Position = UDim2.new(0.228750005, 0, 0.401105642, 0)
+    	ToggleButton.BorderMode = Enum.BorderMode.Inset
+    	ToggleButton.BackgroundColor3 = Color3.new(0, 0, 0)
+	    ToggleButton.TextStrokeColor3 = Color3.new(0, 0, 0)
+    	ToggleButton.TextStrokeTransparency = 0
+    	ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+	    ToggleButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    	ToggleButton.Text = Name .. ": Off"
+	    ToggleButton.Parent = ButtonHolder
+
+    	ToggleButton.MouseButton1Click:Connect(function()
+		    state = not state
+		    ToggleButton.Text = Name .. ": " .. (state and "On" or "Off")
+		    pcall(Callback, state)
+	    end)
+    end
+
+        
 	end
 	
 	return _G.Frame
