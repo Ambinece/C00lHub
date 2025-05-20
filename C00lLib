@@ -1,61 +1,61 @@
 local MainLibrary = {}
 
 function MainLibrary:CreateUI(title)
-    local player = game:GetService("Players").LocalPlayer
-    local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-    gui.Name = "C00lGUI"
-    gui.ResetOnSpawn = false
+    local Gui = Instance.new("ScreenGui")
+    Gui.Name = "C00lGUI"
+    Gui.ResetOnSpawn = false
+    Gui.Parent = CoreGui
 
-    local topBar = Instance.new("Frame")
-    topBar.Name = "TopBar"
-    topBar.Size = UDim2.new(0, 400, 0, 35)
-    topBar.Position = UDim2.new(0.3, 0, 0.2, 0)
-    topBar.BackgroundColor3 = Color3.new(0, 0, 0)
-    topBar.BorderColor3 = Color3.new(1, 0, 0)
-    topBar.BorderSizePixel = 3
-    topBar.Parent = gui
-    topBar.Active = true
-    topBar.Draggable = true
+    local TopBar = Instance.new("Frame")
+    TopBar.Name = "TopBar"
+    TopBar.Size = UDim2.new(0, 400, 0, 35)
+    TopBar.Position = UDim2.new(0.3, 0, 0.2, 0)
+    TopBar.BackgroundColor3 = Color3.new(0, 0, 0)
+    TopBar.BorderColor3 = Color3.new(1, 0, 0)
+    TopBar.BorderSizePixel = 3
+    TopBar.Parent = Gui
+    TopBar.Active = true
+    TopBar.Draggable = true
 
-    local label = Instance.new("TextLabel")
-    label.Size = UDim2.new(1, 0, 1, 0)
-    label.BackgroundTransparency = 1
-    label.Text = title or "C00lGUI"
-    label.TextColor3 = Color3.new(1, 1, 1)
-    label.Font = Enum.Font.SourceSansBold
-    label.TextSize = 22
-    label.Parent = topBar
+    local Label = Instance.new("TextLabel")
+    Label.Size = UDim2.new(1, 0, 1, 0)
+    Label.BackgroundTransparency = 1
+    Label.Text = title
+    Label.TextColor3 = Color3.new(1, 1, 1)
+    Label.Font = Enum.Font.SourceSansBold
+    Label.TextSize = 22
+    Label.Parent = TopBar
 
-    local buttonHolder = Instance.new("Frame")
-    buttonHolder.Name = "ButtonHolder"
-    buttonHolder.Size = UDim2.new(1, 0, 0, 300)
-    buttonHolder.Position = UDim2.new(0, 0, 1, 0)
-    buttonHolder.BackgroundTransparency = 1
-    buttonHolder.Parent = topBar
+    local ButtonHolder = Instance.new("Frame")
+    ButtonHolder.Name = "ButtonHolder"
+    ButtonHolder.Size = UDim2.new(1, 0, 0, 300)
+    ButtonHolder.Position = UDim2.new(0, 0, 1, 0)
+    ButtonHolder.BackgroundTransparency = 1
+    ButtonHolder.Parent = TopBar
 
-    local layout = Instance.new("UIListLayout")
-    layout.Padding = UDim.new(0, 5)
-    layout.Parent = buttonHolder
+    local Layout = Instance.new("UIListLayout")
+    Layout.Padding = UDim.new(0, 5)
+    Layout.Parent = ButtonHolder
 
-    local toggleState = {}
+    local ToggleState = {}
 
-    local interface = {}
+    local Interface = {}
 
-    function interface:CreateButton(name, callback)
-        local button = Instance.new("TextButton")
-        button.Size = UDim2.new(1, -10, 0, 40)
-        button.Text = name
-        button.TextColor3 = Color3.new(1, 1, 1)
-        button.BackgroundColor3 = Color3.new(0, 0, 0)
-        button.BorderColor3 = Color3.new(1, 0, 0)
-        button.Parent = buttonHolder
+    function Interface:CreateButton(name, callback)
+        local Button = Instance.new("TextButton")
+        Button.Size = UDim2.new(1, -10, 0, 40)
+        Button.Text = name
+        Button.TextColor3 = Color3.new(1, 1, 1)
+        Button.BackgroundColor3 = Color3.new(0, 0, 0)
+        Button.BorderColor3 = Color3.new(1, 0, 0)
+        Button.Parent = ButtonHolder
 
-        button.MouseButton1Click:Connect(function()
+        Button.MouseButton1Click:Connect(function()
             pcall(callback)
         end)
     end
 
-    function interface:CreateToggle(name, callback)
+    function Interface:CreateToggle(name, callback)
         local state = false
 
         local toggle = Instance.new("TextButton")
@@ -64,7 +64,7 @@ function MainLibrary:CreateUI(title)
         toggle.TextColor3 = Color3.new(1, 1, 1)
         toggle.BackgroundColor3 = Color3.new(0, 0, 0)
         toggle.BorderColor3 = Color3.new(1, 0, 0)
-        toggle.Parent = buttonHolder
+        toggle.Parent = ButtonHolder
 
         toggle.MouseButton1Click:Connect(function()
             state = not state
@@ -72,10 +72,10 @@ function MainLibrary:CreateUI(title)
             pcall(callback, state)
         end)
 
-        toggleState[name] = state
+        ToggleState[name] = state
     end
 
-    return interface
+    return Interface
 end
 
 return MainLibrary
