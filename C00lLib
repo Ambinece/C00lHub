@@ -1,0 +1,156 @@
+local C00lGUI = Instance.new("ScreenGui")
+local TopBar = Instance.new("Frame")
+local Main = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local DestroyGUI = Instance.new("TextButton")
+local ButtonHolder = Instance.new("Frame")
+
+local UIListLayout = Instance.new("UIListLayout")
+local HideMove = Instance.new("Frame")
+local HideGUI = Instance.new("TextButton")
+
+_G.Main = {
+	
+}
+function _G.Main:new(Title)
+
+	C00lGUI.Name = "C00lGUI"
+	C00lGUI.Parent = game.StarterGui
+
+	TopBar.Name = "TopBar"
+	TopBar.Size = UDim2.new(0, 400, 0, 35)
+	TopBar.BorderColor3 = Color3.new(1, 0, 0)
+	TopBar.BorderSizePixel = 3
+	TopBar.Position = UDim2.new(0.463895887, 0, 0.171467766, 0)
+	TopBar.BackgroundColor3 = Color3.new(0, 0, 0)
+	TopBar.Parent = C00lGUI
+	TopBar.Text = Title
+
+	Main.Name = "Main"
+	Main.Size = UDim2.new(0, 400, 0, 367)
+	Main.BorderColor3 = Color3.new(1, 0, 0)
+	Main.BorderSizePixel = 3
+	Main.Position = UDim2.new(0, 0, 1.10000002, 0)
+	Main.BackgroundColor3 = Color3.new(0, 0, 0)
+	Main.Parent = TopBar
+
+	TextLabel.Name = "TextLabel"
+	TextLabel.Size = UDim2.new(0, 364, 0, 35)
+	TextLabel.BorderColor3 = Color3.new(0, 0, 0)
+	TextLabel.BorderSizePixel = 0
+	TextLabel.BackgroundTransparency = 1
+	TextLabel.Position = UDim2.new(-7.62939436e-08, 0, 0, 0)
+	TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+	TextLabel.TextColor3 = Color3.new(1, 1, 1)
+	TextLabel.Text = "C00lGUI"
+	TextLabel.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	TextLabel.Parent = TopBar
+
+	DestroyGUI.Name = "DestroyGUI"
+	DestroyGUI.AutoButtonColor = true
+	DestroyGUI.Size = UDim2.new(0, 35, 0, 35)
+	DestroyGUI.BorderColor3 = Color3.new(1, 0, 0)
+	DestroyGUI.BorderSizePixel = 3
+	DestroyGUI.Position = UDim2.new(0.911053896, 0, -0.000946044922, 0)
+	DestroyGUI.BackgroundColor3 = Color3.new(0, 0, 0)
+	DestroyGUI.TextColor3 = Color3.new(1, 1, 1)
+	DestroyGUI.Text = "<"
+	DestroyGUI.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	DestroyGUI.Parent = TopBar
+
+	ButtonHolder.Name = "ButtonHolder"
+	ButtonHolder.Size = UDim2.new(0, 395, 0, 361)
+	ButtonHolder.BorderColor3 = Color3.new(1, 0, 0)
+	ButtonHolder.BorderSizePixel = 0
+	ButtonHolder.BackgroundTransparency = 0.5
+	ButtonHolder.Position = UDim2.new(0.00499999989, 0, 1.18571424, 0)
+	ButtonHolder.BackgroundColor3 = Color3.new(0, 0, 0)
+	ButtonHolder.Parent = TopBar
+
+	UIListLayout.Name = "UIListLayout"
+	UIListLayout.Wraps = true
+	UIListLayout.Padding = UDim.new(0.00499999989, 0)
+	UIListLayout.ItemLineAlignment = Enum.ItemLineAlignment.End
+	UIListLayout.Parent = ButtonHolder
+
+	HideMove.Name = "HideMove"
+	HideMove.Size = UDim2.new(0, 65, 0, 29)
+	HideMove.BorderColor3 = Color3.new(0, 0, 0)
+	HideMove.BorderSizePixel = 0
+	HideMove.BackgroundTransparency = 0.8999999761581421
+	HideMove.Position = UDim2.new(0.374055415, 0, 0.121056251, 0)
+	HideMove.BackgroundColor3 = Color3.new(1, 0, 0)
+	HideMove.Parent = C00lGUI
+
+	HideGUI.Name = "HideGUI"
+	HideGUI.AutoButtonColor = true
+	HideGUI.Size = UDim2.new(0, 30, 0, 30)
+	HideGUI.BorderColor3 = Color3.new(1, 0, 0)
+	HideGUI.BorderSizePixel = 3
+	HideGUI.Position = UDim2.new(0.26105395, 0, 0.999053955, 0)
+	HideGUI.BackgroundColor3 = Color3.new(0, 0, 0)
+	HideGUI.TextColor3 = Color3.new(1, 1, 1)
+	HideGUI.Text = "<"
+	HideGUI.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	HideGUI.Parent = HideMove
+
+	coroutine.wrap(function()
+		local script = Instance.new("LocalScript", TopBar)
+		script.Parent.Active = true
+		script.Parent.Draggable = true
+	end)()
+
+	coroutine.wrap(function()
+		local script = Instance.new("LocalScript", DestroyGUI)
+		script.Parent.MouseButton1Click:Connect(function()
+			script.Parent.Parent.Parent.TopBar.Visible = not script.Parent.Parent.Parent.TopBar.Visible
+			script.Parent.Text = script.Parent.Parent.Parent.TopBar.Visible and "<" or ">"
+		end)
+	end)()
+
+	coroutine.wrap(function()
+		local script = Instance.new("LocalScript", HideGUI)
+		script.Parent.MouseButton1Click:Connect(function()
+			script.Parent.Parent.Parent.TopBar.Visible = not script.Parent.Parent.Parent.TopBar.Visible
+			script.Parent.Text = script.Parent.Parent.Parent.TopBar.Visible and "<" or ">"
+		end)
+	end)()
+
+	coroutine.wrap(function()
+		local script = Instance.new("LocalScript", HideMove)
+		script.Parent.Active = true
+		script.Parent.Draggable = true
+	end)()
+	
+	_G.Frame = {}
+	function _G.Frame:Button(Name,Call)
+		
+		local TextButton = Instance.new("TextButton")
+		TextButton.Name = Name
+		TextButton.AutoButtonColor = true
+		TextButton.Size = UDim2.new(0, 196, 0, 50)
+		TextButton.SizeConstraint = Enum.SizeConstraint.RelativeXX
+		TextButton.BorderColor3 = Color3.new(1, 0, 0)
+		TextButton.BorderSizePixel = 4
+		TextButton.Position = UDim2.new(0.228750005, 0, 0.401105642, 0)
+		TextButton.BorderMode = Enum.BorderMode.Inset
+		TextButton.BackgroundColor3 = Color3.new(0, 0, 0)
+		TextButton.TextStrokeColor3 = Color3.new(0, 0, 0)
+		TextButton.TextStrokeTransparency = 0
+		TextButton.TextColor3 = Color3.new(1, 1, 1)
+		TextButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+		TextButton.Parent = ButtonHolder
+		
+		TextButton.MouseButton1Click:Connect(function()
+			
+			pcall(Call)
+			
+		end)
+		
+	end
+	
+	return _G.Frame
+	
+end
+
+return _G.Main
